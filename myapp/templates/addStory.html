@@ -10,7 +10,7 @@
             </div>
         {% else %}
             <div class="shadow p-4 mb-5 bg-body rounded">
-                <form action="" method=POST>
+                <form action="" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <br /><br />
@@ -19,4 +19,4 @@
             </div>
         {% endif %}
     </center>
-{% endblock %}  
+{% endblock %}

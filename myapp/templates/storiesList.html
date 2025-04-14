@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Your Entries</h2>
+    {% if stories %}
+        <div class="list-group">
+            {% for story in stories %}
+                <div class="list-group-item">
+                    <h5 class="mb-1">{{ story.title }}</h5>
+                    <p class="mb-1">{{ story.content|truncatewords:20 }}</p>
+                    <small>Genre: {{ story.genre }}</small>
+                    <div class="mt-2">
+                        <a href="{% url 'manageStory' story.storyId %}" class="btn btn-sm btn-primary">Edit</a>
+                        <form action="{% url 'deleteStory' story.storyId %}" method="POST" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this story?');">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't submitted any stories yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

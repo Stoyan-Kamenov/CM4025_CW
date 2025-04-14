@@ -29,15 +29,12 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'addStory' %}">Submit an Entry</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'rankings' %}">Rankings</a>
-          </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account' %}">Account</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'manageStory' %}">Manage Entries</a>
+            <a class="nav-link" href="{% url 'storiesList' %}">Your Entries</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
