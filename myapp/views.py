@@ -3,11 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Stories, Ratings
 from .forms import StoryForm
+import random
 
 
 # Go to Home
 def home(request):
-    return render(request, 'home.html')
+    stories = Stories.objects.filter(isPublic=True)
+    random_story = random.choice(stories) if stories.exists() else None
+    return render(request, 'home.html', {'random_story': random_story})
 
 # Go to Library
 def library(request):

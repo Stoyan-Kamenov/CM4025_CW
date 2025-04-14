@@ -6,5 +6,19 @@
 
 {% block content %}
     <h1>Welcome Mon-keigh to my grand archives. Feel free to look around or make new entries into them.</h1>
+    
+    {% if random_story %}
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{% url 'viewStory' random_story.storyId %}" target="_blank" class="text-decoration-none">{{ random_story.title }}</a>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">By {{ random_story.author }}</h6>
+                <p class="card-text">{{ random_story.content|truncatewords:20 }}...</p>
+                <p class="card-text"><strong>Genre:</strong> {{ random_story.genre }}</p>
+            </div>
+        </div>
+    {% else %}
+        <p class="mt-4">No stories available at the moment. Be the first to add one!</p>
+    {% endif %}
 {% endblock %}
-
