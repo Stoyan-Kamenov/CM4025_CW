@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Stories
+from .models import Ratings
 
-# Register your models here.
+admin.site.register(Stories)
+admin.site.register(Ratings)

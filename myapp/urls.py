@@ -7,5 +7,6 @@ urlpatterns = [
     path('addStory/', views.addStory, name='addStory'),
     path('manageStory/', views.manageStory, name='manageStory'),
     path('account/', views.account, name='account'),
-    path('leaderboards/', views.leaderboards, name='leaderboards')
+    path('rankings/', views.rankings, name='rankings'),
+    path('rate_story/<uuid:story_id>/', views.rate_story, name='rate_story')
 ]

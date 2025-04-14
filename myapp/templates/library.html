@@ -1,5 +1,85 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h1 class="text-center my-4">Librarius</h1>
+<h4 class="text-center text-muted mb-4">Welcome to Trazyn The Infinite's Archives. Enjoy your stay!</h4>
+
+<div class="container">
+    <div class="row">
+        
+        {% for story in stories %}
+            {% if story.isPublic or user.is_authenticated %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ story.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">By {{ story.author }}</h6>
+                        <p class="card-text">{{ story.content }}</p>
+                        <p class="card-text"><strong>Genre:</strong> {{ story.genre }}</p>
+                    </div>
+                </div>
+                <!-- Rating -->
+                {% if user.is_authenticated %}
+                    <div class="card-footer mb-4">
+                        <form method="POST" action="{% url 'rate_story' story.storyId %}">
+                            {% csrf_token %}
+                            <div class="d-flex align-items-center">
+                                <div class="star-rating animated-stars me-3">
+                                    <input type="radio" id="star5-{{ story.storyId }}" name="rating" value="5">
+                                    <label for="star5-{{ story.storyId }}" class="bi bi-star-fill"></label>
+                                    <input type="radio" id="star4-{{ story.storyId }}" name="rating" value="4">
+                                    <label for="star4-{{ story.storyId }}" class="bi bi-star-fill"></label>
+                                    <input type="radio" id="star3-{{ story.storyId }}" name="rating" value="3">
+                                    <label for="star3-{{ story.storyId }}" class="bi bi-star-fill"></label>
+                                    <input type="radio" id="star2-{{ story.storyId }}" name="rating" value="2">
+                                    <label for="star2-{{ story.storyId }}" class="bi bi-star-fill"></label>
+                                    <input type="radio" id="star1-{{ story.storyId }}" name="rating" value="1">
+                                    <label for="star1-{{ story.storyId }}" class="bi bi-star-fill"></label>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm">Submit Rating</button>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .star-rating {
+        direction: rtl;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .star-rating input {
+        display: none;
+    }
+
+    .star-rating label {
+        color: #ddd;
+        font-size: 24px;
+        padding: 0 2px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover~label,
+    .star-rating input:checked~label {
+        color: #ffc107;
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.star-rating:not(.readonly) label').forEach(star => {
+        star.addEventListener('click', function() {
+            this.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+        });
+    });
+</script>
 
 {% endblock %}
