@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Login</h1>
+
+<h4>Welcome to Trazyn The Infinite's Archives. Please login to continue.</h4>
+<hr />
+
+<form action="" method=POST>
+    {% csrf_token %}
+
+    <form>
+        <div class="mb-3">
+            <label for="exampleInputUsername" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" aria-describedby="usernameHelp">
+
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+
+        <p>Don't have an account? <a href="{% url 'register' %}">Register here</a>.</p>
+
+        <input type="submit" value="Submit" class="btn btn-secondary">
+
+    </form>
+
+
+    <br /><br />
+    {% endblock %}
