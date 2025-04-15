@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.db.models import Avg
 from .models import Stories, Ratings
 from .forms import StoryForm
 import random
@@ -10,11 +11,13 @@ import random
 def home(request):
     stories = Stories.objects.filter(isPublic=True)
     random_story = random.choice(stories) if stories.exists() else None
+    if random_story:
+        random_story = Stories.objects.filter(storyId=random_story.storyId).annotate(average_rating=Avg('ratings__rating')).first()
     return render(request, 'home.html', {'random_story': random_story})
 
 # Go to Library
 def library(request):
-    stories = Stories.objects.all()
+    stories = Stories.objects.all().annotate(average_rating=Avg('ratings__rating'))
     return render(request, 'library.html', {'stories': stories})
 
 # Add Story
@@ -85,4 +88,6 @@ def rateStory(request, story_id):
         rating_value = int(request.POST.get('rating', 0))
         if 1 <= rating_value <= 5:  
             Ratings.objects.create(storyId=story, rating=rating_value)
-    return redirect('library') 
+    
+    referer = request.META.get('HTTP_REFERER', '/')
+    return HttpResponseRedirect(referer)
