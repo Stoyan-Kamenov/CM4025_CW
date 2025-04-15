@@ -21,7 +21,8 @@ This is a Django-based web application for managing and sharing stories. Users c
 
 4. Apply Migrations
     python manage.py makemigrations
+   
     python manage.py migrate
 
-5. Run server
+6. Run server
     python manage.py runserver
