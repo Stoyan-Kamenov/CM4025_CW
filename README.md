@@ -13,14 +13,15 @@ This is a Django-based web application for managing and sharing stories. Users c
 
 1. Clone the repository:
    git clone <repository-url>
+
    cd CM4025_CW
 
-2. Install the requirements:
+3. Install the requirements:
     pip install -r requirements.txt
 
-3. Apply Migrations
+4. Apply Migrations
     python manage.py makemigrations
     python manage.py migrate
 
-4. Run server
+5. Run server
     python manage.py runserver
